@@ -82,6 +82,12 @@
                                     <a href="/home">Home</a>
                                 </li>
                                 <li class="list-group-item">
+                                    <a href="{{ route('category.index') }}">Categories</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="{{ route('category.create') }}">Create Category</a>
+                                </li>
+                                <li class="list-group-item">
                                     <a href="{{ route('post.rendercreate') }}">Create Post</a>
                                 </li>
                             </ul>
