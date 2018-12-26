@@ -18,6 +18,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
 </head>
 <body>
     <div id="app">
@@ -102,5 +105,11 @@
            
         </main>
     </div>
+    <script>
+        @if(Session::has('success'))
+            toastr.options.closeButton = true;
+            toastr.success("{{ Session::get('success') }}")
+        @endif
+    </script>
 </body>
 </html>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
+use App\Post;
 
 class PostsController extends Controller
 {
@@ -23,7 +25,7 @@ class PostsController extends Controller
      */
 
     public function renderCreate(){
-        return view('admin.posts.create');
+        return view('admin.posts.create')->with('categories',Category::all());
     }
 
     public function create(Request $request)
@@ -33,11 +35,23 @@ class PostsController extends Controller
 
             'title' => 'required',
             'featured' => 'required|image',
-            'content' => 'required'
-
+            'content' => 'required',
+            'category_id' => 'required'
 
         ]);
-        //dd($request->all());
+        
+        $featured = $request->featured;
+        $newNameOfImage  = time().$featured->getClientOriginalName();
+        $featured->move('uploads/posts',$newNameOfImage);
+
+        $post = Post::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'featured' => 'uploads/posts'.$newNameOfImage,
+            'category_id' => $request->category_id
+        ]);
+        Session::flash('success','Post created successfully');
+        return redirect()->route('post.rendercreate');
     }
 
     /**
