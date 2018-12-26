@@ -13,8 +13,8 @@
            @foreach($categories as $category)
            <tr>
                <td>{{ $category->name }}</td>
-               <td><a href="/categories/edit/{{$category->id}}" class="btn btn-primary">Update</a></td>
-               <td><a href="/categories/delete/{{$category->id}}" class="btn btn-danger">Delete</a></td>
+               <td><a href="{{ route('category.edit',['id'=>$category->id]) }}" class="btn btn-primary">Update</a></td>
+               <td><a href="{{ route('category.delete',['id'=>$category->id]) }}" class="btn btn-danger">Delete</a></td>
            </tr>
            @endforeach
        </tbody>
