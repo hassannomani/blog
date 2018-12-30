@@ -15,7 +15,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.posts.index')->with('posts',Post::all());
     }
 
     /**
@@ -25,7 +25,13 @@ class PostsController extends Controller
      */
 
     public function renderCreate(){
-        return view('admin.posts.create')->with('categories',Category::all());
+        $categories = Category::all();
+        if($categories->count()==0){
+            Session::flash('info','Please create some post category at first');
+            return redirect()->back();
+        }
+
+        return view('admin.posts.create')->with('categories',$categories);
     }
 
     public function create(Request $request)
@@ -47,8 +53,9 @@ class PostsController extends Controller
         $post = Post::create([
             'title' => $request->title,
             'content' => $request->content,
-            'featured' => 'uploads/posts'.$newNameOfImage,
-            'category_id' => $request->category_id
+            'featured' => 'uploads/posts/'.$newNameOfImage,
+            'category_id' => $request->category_id,
+            'slug' => str_slug($request->title)
         ]);
         Session::flash('success','Post created successfully');
         return redirect()->route('post.rendercreate');

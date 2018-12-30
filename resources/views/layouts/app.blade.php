@@ -85,6 +85,9 @@
                                     <a href="/home">Home</a>
                                 </li>
                                 <li class="list-group-item">
+                                    <a href="{{ route('post.index') }}">Posts</a>
+                                </li>
+                                <li class="list-group-item">
                                     <a href="{{ route('category.index') }}">Categories</a>
                                 </li>
                                 <li class="list-group-item">
@@ -109,6 +112,10 @@
         @if(Session::has('success'))
             toastr.options.closeButton = true;
             toastr.success("{{ Session::get('success') }}")
+        @endif
+        @if(Session::has('info'))
+            toastr.options.closeButton = true;
+            toastr.info("{{ Session::get('info') }}")
         @endif
     </script>
 </body>
