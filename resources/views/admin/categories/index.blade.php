@@ -10,14 +10,45 @@
            <th>Delete</th>
        </thead>
        <tbody>
-           @foreach($categories as $category)
-           <tr>
-               <td>{{ $category->name }}</td>
-               <td><a href="{{ route('category.edit',['id'=>$category->id]) }}" class="btn btn-primary">Update</a></td>
-               <td><a href="{{ route('category.delete',['id'=>$category->id]) }}" class="btn btn-danger">Delete</a></td>
-           </tr>
-           @endforeach
-       </tbody>
+        @if($categories->count() > 0)
+
+          @foreach($categories as $category)
+
+            <tr>
+
+              <td>{{ $category->name }}</td>
+
+              <td>
+
+                <a href="{{ route('category.edit',['id'=>$category->id]) }}" class="btn btn-primary">Update</a>
+              
+              </td>
+
+              <td>
+
+                <a href="{{ route('category.delete',['id'=>$category->id]) }}" class="btn btn-danger">Delete</a>
+              
+              </td>
+
+            </tr>
+
+          @endforeach
+
+        @else
+
+          <tr>
+
+            <td class="text-center" colspan="3">
+
+              No categories
+
+            </td>
+
+          </tr>
+
+        @endif
+
+      </tbody>
        
    </table>
 </div>

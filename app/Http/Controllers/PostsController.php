@@ -67,9 +67,12 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function restore($id)
     {
-        //
+        $post = Post::withTrashed()->where('id',$id)->first();
+        $post->restore();
+        Session::flash('success','Your post has been restored');
+        return redirect()->route('post.index');
     }
 
     /**
@@ -91,7 +94,8 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('admin.posts.edit')->with('post',$post)->with('categories',Category::all());
     }
 
     /**
@@ -103,7 +107,27 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+
+            'title' => 'required',
+            'content' => 'required',
+            'category_id' => 'required'
+        ]);
+        
+        $post = Post::find($id);
+        $featured = $request->featured;
+        if($featured){
+            $newNameOfImage  = time().$featured->getClientOriginalName();
+            $featured->move('uploads/posts',$newNameOfImage);
+            $post->featured = 'uploads/posts/'.$newNameOfImage;
+        }
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->category_id = $request->category_id;
+        $post->save();
+        Session::flash('success','Your post has been successfully edited');
+        return redirect()->route('post.index');
+        
     }
 
     /**
