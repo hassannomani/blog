@@ -3,21 +3,21 @@
 @section('content')
 <div class="panel panel-default">
     <div class="panel-heading">
-        Create a new Category!
+        Edit Tag {{$tag->tag}}!  <hr/>
     </div>
     <div class="panel-body">
         @include('admin.includes.errors')
 
-        <form action="{{ route('category.store') }}" method="post">
+        <form action="{{ route('tag.update',['id'=>$tag->id]) }}" method="post">
             {{ csrf_field() }}
             <div class="form-group">
-                <label for="title"></label>
-                <input type="text" class="form-control" name="name">
+                <label for="tag">Tag Name</label>
+                <input type="text" class="form-control" name="tag" id="tag" value="{{ $tag->tag}}">
             </div>
            
             <div class="form-group">
                 <div class="text-center">
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-primary" type="submit">Update tag</button>
                 </div>
             </div>
         </form>

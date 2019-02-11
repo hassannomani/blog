@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
 use App\Tag;
 
 class TagsController extends Controller
@@ -14,7 +15,7 @@ class TagsController extends Controller
      */
     public function index()
     {
-        return view('admin.tags.index')->with('tags',Tag:all());
+        return view('admin.tags.index')->with('tags',Tag::all());
     }
 
     /**
@@ -24,7 +25,7 @@ class TagsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tags.create');
     }
 
     /**
@@ -45,7 +46,7 @@ class TagsController extends Controller
 
         Session::flash('success','Tag has been created succesfully');
 
-        return redirect()->back();
+        return redirect()->route('tags');
     }
 
     /**
@@ -89,7 +90,7 @@ class TagsController extends Controller
         $tag->tag = $request->tag;
         $tag->save();
         Session::flash('success','Tag has been updated succesfully');
-        return redirect()->back();
+        return redirect()->route('tags');
     }
 
     /**
