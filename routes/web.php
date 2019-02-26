@@ -118,6 +118,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 		'uses' => 'UsersController@store',
 		'as' => 'user.store'
 	]);
+	Route::get('/users/admin_change/{id}',[
+		'uses' => 'UsersController@admin_change',
+		'as' => 'user.admin_change'
+	]);
 });
 
 

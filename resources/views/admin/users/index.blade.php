@@ -31,8 +31,12 @@
 
                 <td>
 
-                  Permissions
-
+                  @if($user->admin)
+                    <a href="{{route('user.admin_change',['id'=>$user->id])}}" class="btn btn-danger">Delete admin</a>
+                  @else
+                    <a href="{{route('user.admin_change',['id'=>$user->id])}}" class="btn btn-success">Make admin</a>
+                  @endif
+                
                 </td>
 
                 <td>

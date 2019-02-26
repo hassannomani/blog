@@ -49,7 +49,8 @@ class UsersController extends Controller
         ]);
 
         $profile = Profile::create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'avatar' => 'uploads/avatars/1.png'
         ]);
 
         Session::flash('success', 'User successfully created');
@@ -88,6 +89,17 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function admin_change($id){
+        $user = User::find($id);
+        if($user->admin)
+            $user->admin = 0;
+        else
+            $user->admin = 1;
+        $user->save();
+        Session::flash('success', 'User role successfully changed');
+        return redirect()->back();
     }
 
     /**
