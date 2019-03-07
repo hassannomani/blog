@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label for="content"></label>
-                <textarea class="form-control" name="content" cols="5" rows="5" 
+                <textarea id="content" class="form-control" name="content" cols="5" rows="5" 
                 ></textarea>
             </div>
             <div class="form-group">
@@ -50,3 +50,16 @@
     </div>
 </div>
 @endsection
+
+@section('styles')
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">   
+@stop
+
+@section('scripts')
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js" type="text/javascript" defer></script>
+    <script>
+        $(document).ready(function(){
+            $("#content").summernote();
+        });
+    </script>
+@stop 

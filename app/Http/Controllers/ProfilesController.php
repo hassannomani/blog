@@ -108,6 +108,6 @@ class ProfilesController extends Controller
      */
     public function destroy($id)
     {
-        //
+      
     }
 }

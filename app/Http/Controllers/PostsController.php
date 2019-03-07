@@ -27,12 +27,13 @@ class PostsController extends Controller
 
     public function renderCreate(){
         $categories = Category::all();
-        if($categories->count()==0){
-            Session::flash('info','Please create some post category at first');
+        $tags = Tag::all();
+        if($categories->count()==0 || $tags->count()==0){
+            Session::flash('info','Please create some post category or tag at first');
             return redirect()->back();
         }
 
-        return view('admin.posts.create')->with('categories',$categories)->with('tags',Tag::all());
+        return view('admin.posts.create')->with('categories',$categories)->with('tags',$tags);
     }
 
     public function create(Request $request)
