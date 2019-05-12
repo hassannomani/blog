@@ -15,6 +15,13 @@ Route::get('/',[
 	'uses' => 'FrontEndController@index',
 	'as' => 'index'
 ]);
+
+Route::get('/post/{slug}',[
+	'uses' => 'FrontEndController@singlePost',
+	'as' => 'post.single'
+]);
+ 
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
