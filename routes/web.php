@@ -26,6 +26,21 @@ Route::get('/category/{id}',[
 	'as'   => 'category.single'
 ]);
 
+Route::get('/tag/{id}',[
+	'uses' => 'FrontEndController@tag',
+	'as'   => 'tag.single'
+]);
+
+Route::get('/results',function(){
+	$posts = \App\Post::where('title','like','%'.request('query').'%');
+	dd($posts);
+	return view('results')->with('posts', $posts)
+						  ->with('settings', \App\Setting::first())
+						  ->with('title', 'Search result: '.request('query'))
+						  ->with('categories', \App\Category::take(5)->get())
+						  ->with('query', request('query'));
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
