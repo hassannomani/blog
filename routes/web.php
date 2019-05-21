@@ -29,11 +29,10 @@ Route::get('/category/{id}',[
 Route::get('/tag/{id}',[
 	'uses' => 'FrontEndController@tag',
 	'as'   => 'tag.single'
-]);
+]); 
 
 Route::get('/results',function(){
-	$posts = \App\Post::where('title','like','%'.request('query').'%');
-	dd($posts);
+	$posts = \App\Post::where('title','like','%'.request('query').'%')->get();
 	return view('results')->with('posts', $posts)
 						  ->with('settings', \App\Setting::first())
 						  ->with('title', 'Search result: '.request('query'))
