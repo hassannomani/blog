@@ -10,6 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/subscribe',function(){
+
+	$email = request('email');
+
+	Session::flash('subscribed','Successfully subscribed!');
+	return redirect()->back();
+	Newsletter::subscribe($email);
+});
 
 Route::get('/',[
 	'uses' => 'FrontEndController@index',
